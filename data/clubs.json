@@ -1,0 +1,21 @@
+[
+  { "id": "ars", "name": "Arsenal", "shortName": "Arsenal", "tla": "ARS", "crest": "https://crests.thefifadb.com/crests/ars.png", "leagueId": "PL", "coach": "Mikel Arteta", "stadium": "Emirates Stadium", "founded": 1886 },
+  { "id": "liv", "name": "Liverpool", "shortName": "Liverpool", "tla": "LIV", "crest": "https://crests.thefifadb.com/crests/liv.png", "leagueId": "PL", "coach": "Arne Slot", "stadium": "Anfield", "founded": 1892 },
+  { "id": "mci", "name": "Manchester City", "shortName": "Man City", "tla": "MCI", "crest": "https://crests.thefifadb.com/crests/mci.png", "leagueId": "PL", "coach": "Pep Guardiola", "stadium": "Etihad Stadium", "founded": 1880 },
+  { "id": "mun", "name": "Manchester United", "shortName": "Man United", "tla": "MUN", "crest": "https://crests.thefifadb.com/crests/mun.png", "leagueId": "PL", "coach": "Erik ten Hag", "stadium": "Old Trafford", "founded": 1878 },
+  { "id": "che", "name": "Chelsea", "shortName": "Chelsea", "tla": "CHE", "crest": "https://crests.thefifadb.com/crests/che.png", "leagueId": "PL", "coach": "Enzo Maresca", "stadium": "Stamford Bridge", "founded": 1905 },
+  { "id": "tot", "name": "Tottenham Hotspur", "shortName": "Tottenham", "tla": "TOT", "crest": "https://crests.thefifadb.com/crests/tot.png", "leagueId": "PL", "coach": "Ange Postecoglou", "stadium": "Tottenham Hotspur Stadium", "founded": 1882 },
+  { "id": "new", "name": "Newcastle United", "shortName": "Newcastle", "tla": "NEW", "crest": "https://crests.thefifadb.com/crests/new.png", "leagueId": "PL", "coach": "Eddie Howe", "stadium": "St James' Park", "founded": 1892 },
+  { "id": "avl", "name": "Aston Villa", "shortName": "Aston Villa", "tla": "AVL", "crest": "https://crests.thefifadb.com/crests/avl.png", "leagueId": "PL", "coach": "Unai Emery", "stadium": "Villa Park", "founded": 1874 },
+  { "id": "rma", "name": "Real Madrid", "shortName": "Real Madrid", "tla": "RMA", "crest": "https://crests.thefifadb.com/crests/rma.png", "leagueId": "PD", "coach": "Carlo Ancelotti", "stadium": "Santiago Bernabeu", "founded": 1902 },
+  { "id": "bar", "name": "Barcelona", "shortName": "Barcelona", "tla": "FCB", "crest": "https://crests.thefifadb.com/crests/bar.png", "leagueId": "PD", "coach": "Hansi Flick", "stadium": "Camp Nou", "founded": 1899 },
+  { "id": "atm", "name": "Atletico Madrid", "shortName": "Atleti", "tla": "ATM", "crest": "https://crests.thefifadb.com/crests/atm.png", "leagueId": "PD", "coach": "Diego Simeone", "stadium": "Metropolitano", "founded": 1903 },
+  { "id": "int", "name": "Inter Milan", "shortName": "Inter", "tla": "INT", "crest": "https://crests.thefifadb.com/crests/int.png", "leagueId": "SA", "coach": "Simone Inzaghi", "stadium": "San Siro", "founded": 1908 },
+  { "id": "mil", "name": "AC Milan", "shortName": "AC Milan", "tla": "MIL", "crest": "https://crests.thefifadb.com/crests/mil.png", "leagueId": "SA", "coach": "Paulo Fonseca", "stadium": "San Siro", "founded": 1899 },
+  { "id": "juv", "name": "Juventus", "shortName": "Juventus", "tla": "JUV", "crest": "https://crests.thefifadb.com/crests/juv.png", "leagueId": "SA", "coach": "Thiago Motta", "stadium": "Allianz Stadium", "founded": 1897 },
+  { "id": "bay", "name": "Bayern Munich", "shortName": "Bayern", "tla": "FCB", "crest": "https://crests.thefifadb.com/crests/bay.png", "leagueId": "BL1", "coach": "Vincent Kompany", "stadium": "Allianz Arena", "founded": 1900 },
+  { "id": "dor", "name": "Borussia Dortmund", "shortName": "Dortmund", "tla": "BVB", "crest": "https://crests.thefifadb.com/crests/dor.png", "leagueId": "BL1", "coach": "Nuri Sahin", "stadium": "Signal Iduna Park", "founded": 1909 },
+  { "id": "lev", "name": "Bayer Leverkusen", "shortName": "Leverkusen", "tla": "B04", "crest": "https://crests.thefifadb.com/crests/lev.png", "leagueId": "BL1", "coach": "Xabi Alonso", "stadium": "BayArena", "founded": 1904 },
+  { "id": "psg", "name": "Paris Saint-Germain", "shortName": "PSG", "tla": "PSG", "crest": "https://crests.thefifadb.com/crests/psg.png", "leagueId": "FL1", "coach": "Luis Enrique", "stadium": "Parc des Princes", "founded": 1970 },
+  { "id": "om", "name": "Marseille", "shortName": "Marseille", "tla": "OM", "crest": "https://crests.thefifadb.com/crests/om.png", "leagueId": "FL1", "coach": "Roberto De Zerbi", "stadium": "Orange Velodrome", "founded": 1899 }
+]

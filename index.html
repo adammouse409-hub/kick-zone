@@ -1,546 +1,106 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark">
+<html lang="en" data-theme="dark" data-lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KickZone - Premium Football Platform</title>
-    
-    <!-- Meta tags for SEO -->
-    <meta name="description" content="KickZone is the ultimate modern football dashboard. View live scores, stats, tables, team rosters, compare players, vote in community fan polls, and explore AI-powered match predictions.">
-    <meta name="keywords" content="football, live score, soccer, stats, premier league, la liga, champions league, player comparison, predictions">
-    
-    <!-- FontAwesome for Premium Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KickZone – Live Football Scores & Stats</title>
+  <meta name="description" content="KickZone – The world's best football platform. Live scores, standings, fixtures, stats, and more for all top leagues." />
+  <meta property="og:title" content="KickZone – Live Football" />
+  <meta property="og:description" content="Live scores, standings, fixtures, and stats for all top leagues." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-    <div class="app-container">
-        
-        <!-- ==========================================
-             DESKTOP SIDEBAR (NAVIGATION)
-             ========================================== -->
-        <aside class="sidebar">
-            <div class="logo-container">
-                <div class="logo-icon">
-                    <i class="fa-solid fa-circle-nodes"></i>
-                </div>
-                <div class="logo-text">KickZone</div>
-            </div>
-            
-            <ul class="nav-menu">
-                <li class="nav-item active" data-page="home">
-                    <a onclick="navigateTo('home')">
-                        <i class="fa-solid fa-house"></i>
-                        <span data-i18n="nav_home">Home</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="live">
-                    <a onclick="navigateTo('live')">
-                        <i class="fa-solid fa-tower-broadcast"></i>
-                        <span data-i18n="nav_live">Live Matches</span>
-                        <span class="nav-badge" id="live-sidebar-badge">4</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="competitions">
-                    <a onclick="navigateTo('competitions')">
-                        <i class="fa-solid fa-trophy"></i>
-                        <span data-i18n="nav_competitions">Competitions</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="transfers">
-                    <a onclick="navigateTo('transfers')">
-                        <i class="fa-solid fa-right-left"></i>
-                        <span data-i18n="nav_transfers">Transfer Center</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="highlights">
-                    <a onclick="navigateTo('highlights')">
-                        <i class="fa-solid fa-circle-play"></i>
-                        <span data-i18n="nav_highlights">Highlights</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="injuries">
-                    <a onclick="navigateTo('injuries')">
-                        <i class="fa-solid fa-crutch"></i>
-                        <span data-i18n="nav_injuries">Injury Tracker</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="favorites">
-                    <a onclick="navigateTo('favorites')">
-                        <i class="fa-solid fa-star"></i>
-                        <span data-i18n="nav_favorites">Favorites</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="community">
-                    <a onclick="navigateTo('community')">
-                        <i class="fa-solid fa-users"></i>
-                        <span data-i18n="nav_community">Community</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="search">
-                    <a onclick="navigateTo('search')">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                        <span data-i18n="nav_search">Search</span>
-                    </a>
-                </li>
-                <li class="nav-item" data-page="profile">
-                    <a onclick="navigateTo('profile')">
-                        <i class="fa-solid fa-user"></i>
-                        <span data-i18n="nav_profile">User Profile</span>
-                    </a>
-                </li>
-            </ul>
-            
-            <!-- User Mini Profile at bottom of Sidebar -->
-            <div class="sidebar-user" onclick="navigateTo('profile')">
-                <div class="user-avatar-container">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Avatar" class="user-avatar" id="sidebar-avatar">
-                    <div class="user-status"></div>
-                </div>
-                <div class="user-meta-info">
-                    <span class="user-meta-name" id="sidebar-username">Adam G.</span>
-                    <span class="user-meta-points" id="sidebar-points">420 pts</span>
-                </div>
-            </div>
-        </aside>
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+  <div class="nav-container">
+    <a href="#/" class="nav-logo" id="nav-logo">
+      <div class="logo-icon"><i class="fas fa-futbol"></i></div>
+      <span class="logo-text">Kick<span class="logo-accent">Zone</span></span>
+    </a>
 
-        <!-- ==========================================
-             MAIN CONTENT WRAPPER
-             ========================================== -->
-        <div class="main-wrapper">
-            
-            <!-- Sticky Header -->
-            <header class="app-header">
-                <!-- Search bar -->
-                <div class="header-search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="global-search-input" placeholder="Search matches, players, teams..." oninput="handleGlobalSearch(this.value)">
-                </div>
-                
-                <!-- Quick actions -->
-                <div class="header-actions">
-                    <!-- Language selector -->
-                    <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle-btn">
-                        <i class="fa-solid fa-globe"></i>
-                        <span>العربية</span>
-                    </button>
-                    
-                    <!-- Theme toggle -->
-                    <button class="action-btn" onclick="toggleTheme()" title="Toggle Theme" id="theme-toggle-btn">
-                        <i class="fa-solid fa-moon"></i>
-                    </button>
-                    
-                    <!-- Login Button -->
-                    <button class="lang-btn" id="login-header-btn" onclick="openLoginModal()" style="border-color:var(--primary); color:var(--primary); font-weight:700;">
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        <span data-i18n="login">Login</span>
-                    </button>
-                    
-                    <!-- Notifications -->
-                    <button class="action-btn" onclick="toggleNotificationsDrawer()" title="Notifications">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="badge-dot"></span>
-                    </button>
-                </div>
-            </header>
-            
-            <!-- Main Content Area -->
-            <main class="main-content" id="main-content">
-                <!-- App.js renders pages here -->
-            </main>
-            
-            <!-- Elegant Footer -->
-            <footer class="app-footer">
-                <div class="footer-grid">
-                    <div>
-                        <div class="footer-logo">
-                            <div class="logo-icon" style="width: 28px; height: 28px; font-size: 14px;">
-                                <i class="fa-solid fa-circle-nodes"></i>
-                            </div>
-                            <span style="font-size: 18px; font-weight: 800;">KickZone</span>
-                        </div>
-                        <p class="footer-desc" data-i18n="footer_desc">The ultimate platform for football fans. Real-time stats, AI match predictions, squad building, and fan discussions.</p>
-                        <div class="footer-socials">
-                            <a href="#" class="footer-social-btn"><i class="fa-brands fa-x-twitter"></i></a>
-                            <a href="#" class="footer-social-btn"><i class="fa-brands fa-facebook"></i></a>
-                            <a href="#" class="footer-social-btn"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#" class="footer-social-btn"><i class="fa-brands fa-youtube"></i></a>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 class="footer-title" data-i18n="footer_leagues">Top Leagues</h4>
-                        <ul class="footer-links">
-                            <li><a onclick="navigateToLeague('PL')">Premier League</a></li>
-                            <li><a onclick="navigateToLeague('LL')">La Liga</a></li>
-                            <li><a onclick="navigateToLeague('SPL')">Saudi Pro League</a></li>
-                            <li><a onclick="navigateToLeague('MLS')">MLS</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="footer-title" data-i18n="footer_features">Features</h4>
-                        <ul class="footer-links">
-                            <li><a onclick="navigateTo('community')">Community Forum</a></li>
-                            <li><a onclick="navigateTo('transfers')">Transfer Center</a></li>
-                            <li><a onclick="openCompareModal()">Compare Tool</a></li>
-                            <li><a onclick="navigateTo('profile')">Fantasy League</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="footer-title" data-i18n="footer_newsletter">Newsletter</h4>
-                        <div class="footer-newsletter">
-                            <input type="email" placeholder="your@email.com" id="newsletter-email">
-                            <button onclick="subscribeNewsletter()" data-i18n="subscribe">Subscribe</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="footer-bottom">
-                    <span id="copyright">&copy; 2026 KickZone. All rights reserved.</span>
-                    <span data-i18n="designed_by">Designed for football fanatics worldwide.</span>
-                </div>
-            </footer>
-            
-        </div>
-        
-        <!-- ==========================================
-             MOBILE BOTTOM NAVIGATION BAR
-             ========================================== -->
-        <nav class="mobile-nav">
-            <a onclick="navigateTo('home')" class="mobile-nav-item active" data-mobile-page="home">
-                <i class="fa-solid fa-house"></i>
-                <span data-i18n="nav_home">Home</span>
-            </a>
-            <a onclick="navigateTo('live')" class="mobile-nav-item" data-mobile-page="live">
-                <i class="fa-solid fa-tower-broadcast"></i>
-                <span data-i18n="nav_live">Live</span>
-            </a>
-            <a onclick="navigateTo('competitions')" class="mobile-nav-item" data-mobile-page="competitions">
-                <i class="fa-solid fa-trophy"></i>
-                <span data-i18n="nav_competitions">Leagues</span>
-            </a>
-            <a onclick="navigateTo('transfers')" class="mobile-nav-item" data-mobile-page="transfers">
-                <i class="fa-solid fa-right-left"></i>
-                <span data-i18n="nav_transfers">Transfers</span>
-            </a>
-            <a onclick="navigateTo('profile')" class="mobile-nav-item" data-mobile-page="profile">
-                <i class="fa-solid fa-user"></i>
-                <span data-i18n="nav_profile">Profile</span>
-            </a>
-        </nav>
-        
-        <!-- ==========================================
-             SLIDE-OUT NOTIFICATIONS DRAWER
-             ========================================== -->
-        <div id="notifications-drawer" class="notifications-drawer-overlay" style="display:none;">
-            <div class="drawer-content glass-card">
-                <div class="drawer-header">
-                    <h3><i class="fa-solid fa-bell"></i> <span data-i18n="notifications_settings">Notifications</span></h3>
-                    <button onclick="toggleNotificationsDrawer()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                
-                <div class="drawer-settings-list">
-                    <div class="settings-group">
-                        <label class="settings-label" data-i18n="match_alerts">Match Alerts</label>
-                        <div class="settings-control">
-                            <span data-i18n="match_start">Match Start</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-match-start" checked onchange="toggleNotifSetting('matchStart')">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-control">
-                            <span data-i18n="goals">Goals</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-goals" checked onchange="toggleNotifSetting('goals')">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-control">
-                            <span data-i18n="red_cards">Red Cards</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-red-cards" checked onchange="toggleNotifSetting('redCards')">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-control">
-                            <span data-i18n="full_time">Full Time</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-full-time" checked onchange="toggleNotifSetting('fullTime')">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="settings-group">
-                        <label class="settings-label" data-i18n="news_alerts">News Alerts</label>
-                        <div class="settings-control">
-                            <span data-i18n="transfer_news">Transfer News</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-transfers" checked onchange="toggleNotifSetting('transfers')">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <div class="settings-control">
-                            <span data-i18n="breaking_news">Breaking News</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notif-breaking" checked onchange="toggleNotifSetting('breaking')">
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 16px 0;">
-                
-                <h4 style="margin-bottom: 12px;" data-i18n="recent_activity">Recent Activity</h4>
-                <div class="drawer-activity-log" id="activity-log">
-                    <!-- Javascript generates messages -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             PLAYER & TEAM COMPARISON OVERLAY MODAL
-             ========================================== -->
-        <div id="compare-modal" class="compare-modal-overlay" style="display:none;">
-            <div class="compare-modal-content glass-card">
-                <div class="compare-modal-header">
-                    <h2><i class="fa-solid fa-right-left"></i> <span data-i18n="compare_players">Compare Players</span></h2>
-                    <button onclick="closeCompareModal()"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div id="compare-modal-body">
-                    <!-- JavaScript mounts the compare interface -->
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SOCIAL SIGN-IN OVERLAY MODAL
-             ========================================== -->
-        <div id="login-modal" class="compare-modal-overlay" style="display:none;">
-            <div class="compare-modal-content glass-card" style="max-width:400px; text-align:center; padding:32px;">
-                <div class="drawer-header" style="justify-content:center; position:relative; margin-bottom:20px; border:none; padding:0;">
-                    <h3 style="font-size:22px; font-weight:800;"><i class="fa-solid fa-circle-nodes" style="color:var(--primary);"></i> Sign in to KickZone</h3>
-                    <button onclick="closeLoginModal()" style="position:absolute; right:0; font-size:18px;"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:24px;">Unlock fan live chatrooms, forecast AI prediction points, and manage your 5-a-side Fantasy draft league.</p>
-                
-                <div style="display:flex; flex-direction:column; gap:12px;">
-                    <button class="social-login-btn google-login" onclick="simulateLogin('Google')">
-                        <i class="fa-brands fa-google"></i> Continue with Google
-                    </button>
-                    <button class="social-login-btn apple-login" onclick="simulateLogin('Apple')">
-                        <i class="fa-brands fa-apple"></i> Continue with Apple
-                    </button>
-                    <button class="social-login-btn fb-login" onclick="simulateLogin('Facebook')">
-                        <i class="fa-brands fa-facebook-f"></i> Continue with Facebook
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ==========================================
-             SHARE MATCH OVERLAY MODAL
-             ========================================== -->
-        <div id="share-modal" class="compare-modal-overlay" style="display:none;">
-            <div class="compare-modal-content glass-card" style="max-width:450px; text-align:center; padding:32px;">
-                <div class="drawer-header" style="justify-content:center; position:relative; margin-bottom:16px; border:none; padding:0;">
-                    <h3 style="font-size:20px; font-weight:800;"><i class="fa-solid fa-share-nodes" style="color:var(--primary);"></i> Share Match Details</h3>
-                    <button onclick="closeShareModal()" style="position:absolute; right:0; font-size:18px;"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <p style="font-size:13px; color:var(--text-secondary); line-height:1.5; margin-bottom:20px;">Invite your friends to watch real-time stats and cast predictions!</p>
-                <div style="display:flex; gap:8px; margin-bottom:20px;">
-                    <input type="text" id="share-link-input" class="compare-item-select" readonly style="text-align:center; font-family:var(--font-en); font-size:13px; background-color:rgba(255,255,255,0.03);">
-                    <button class="follow-btn" onclick="copyShareLink()"><i class="fa-solid fa-copy"></i></button>
-                </div>
-                <div style="display:flex; justify-content:center; gap:16px;">
-                    <button class="footer-social-btn" onclick="shareToSocial('x')"><i class="fa-brands fa-x-twitter"></i></button>
-                    <button class="footer-social-btn" onclick="shareToSocial('fb')"><i class="fa-brands fa-facebook"></i></button>
-                    <button class="footer-social-btn" onclick="shareToSocial('wa')"><i class="fa-brands fa-whatsapp"></i></button>
-                </div>
-            </div>
-        </div>
-
+    <div class="nav-links" id="nav-links">
+      <a href="#/" class="nav-link" data-i18n="nav_home"><i class="fas fa-home"></i> <span>Home</span></a>
+      <a href="#/live" class="nav-link" data-i18n="nav_live"><i class="fas fa-circle live-dot"></i> <span>Live</span></a>
+      <a href="#/schedule" class="nav-link" data-i18n="nav_schedule"><i class="fas fa-calendar"></i> <span>Schedule</span></a>
+      <a href="#/news" class="nav-link" data-i18n="nav_news"><i class="fas fa-newspaper"></i> <span>News</span></a>
+      <a href="#/ucl" class="nav-link" data-i18n="nav_ucl"><i class="fas fa-trophy"></i> <span>UCL</span></a>
+      <a href="#/favorites" class="nav-link protected-link" data-i18n="nav_favorites"><i class="fas fa-heart"></i> <span>Favorites</span></a>
     </div>
 
-    <!-- Extra styles for modals/drawers that are layout specific -->
-    <style>
-        .notifications-drawer-overlay, .compare-modal-overlay {
-            position: fixed;
-            inset: 0;
-            background-color: rgba(9, 13, 22, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 1000;
-            display: flex;
-            justify-content: flex-end;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .drawer-content {
-            width: 400px;
-            height: 100%;
-            border-radius: 0;
-            border-left: 1px solid var(--border-color);
-            background-color: var(--bg-surface);
-            padding: 24px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            animation: slideLeft 0.3s ease;
-        }
+    <div class="nav-actions">
+      <div class="search-wrap">
+        <button class="icon-btn" id="search-toggle" aria-label="Search"><i class="fas fa-search"></i></button>
+        <div class="search-dropdown" id="search-dropdown">
+          <input type="text" id="search-input" placeholder="Search clubs, players, leagues..." autocomplete="off" />
+          <div class="search-results" id="search-results"></div>
+        </div>
+      </div>
 
-        [dir="rtl"] .drawer-content {
-            border-left: none;
-            border-right: 1px solid var(--border-color);
-            animation: slideRight 0.3s ease;
-        }
-        
-        .drawer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        
-        .drawer-settings-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        .drawer-activity-log {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            flex: 1;
-            overflow-y: auto;
-        }
-        
-        .activity-item {
-            background-color: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            padding: 12px;
-            border-radius: var(--border-radius-sm);
-            font-size: 13px;
-            line-height: 1.4;
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-        }
-        
-        .activity-item i {
-            color: var(--primary);
-            margin-top: 2px;
-        }
-        
-        /* Compare Modal Specifics */
-        .compare-modal-overlay {
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .compare-modal-content {
-            width: 90%;
-            max-width: 800px;
-            max-height: 90vh;
-            overflow-y: auto;
-            background-color: var(--bg-surface);
-            border-radius: var(--border-radius-lg);
-            animation: zoomIn 0.3s ease;
-        }
-        
-        .compare-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 16px;
-        }
+      <button class="icon-btn" id="theme-toggle" aria-label="Toggle Theme"><i class="fas fa-moon"></i></button>
 
-        /* Social Login Buttons */
-        .social-login-btn {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: var(--border-radius-sm);
-            font-weight: 600;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-        }
+      <button class="icon-btn" id="lang-toggle" aria-label="Toggle Language">
+        <span id="lang-label">AR</span>
+      </button>
 
-        .google-login {
-            background-color: #FFFFFF;
-            color: #1F2937;
-        }
-        .google-login:hover {
-            background-color: #F9FAFB;
-            box-shadow: 0 4px 12px rgba(255,255,255,0.1);
-        }
+      <div class="nav-user" id="nav-user">
+        <button class="btn-primary" id="login-btn" data-i18n="nav_login">Login</button>
+      </div>
 
-        .apple-login {
-            background-color: #000000;
-            color: #FFFFFF;
-            border-color: rgba(255,255,255,0.15);
-        }
-        .apple-login:hover {
-            background-color: #111111;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
 
-        .fb-login {
-            background-color: #1877F2;
-            color: #FFFFFF;
-            border-color: #1877F2;
-        }
-        .fb-login:hover {
-            background-color: #166FE5;
-            box-shadow: 0 4px 12px rgba(24,119,242,0.3);
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideLeft {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-        
-        @keyframes slideRight {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
-        }
-        
-        @keyframes zoomIn {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="#/" class="mobile-link" data-i18n="nav_home"><i class="fas fa-home"></i> <span>Home</span></a>
+    <a href="#/live" class="mobile-link" data-i18n="nav_live"><i class="fas fa-circle live-dot"></i> <span>Live</span></a>
+    <a href="#/schedule" class="mobile-link" data-i18n="nav_schedule"><i class="fas fa-calendar"></i> <span>Schedule</span></a>
+    <a href="#/news" class="mobile-link" data-i18n="nav_news"><i class="fas fa-newspaper"></i> <span>News</span></a>
+    <a href="#/ucl" class="mobile-link" data-i18n="nav_ucl"><i class="fas fa-trophy"></i> <span>UCL</span></a>
+    <a href="#/favorites" class="mobile-link protected-link" data-i18n="nav_favorites"><i class="fas fa-heart"></i> <span>Favorites</span></a>
+    <a href="#/profile" class="mobile-link protected-link" data-i18n="nav_profile"><i class="fas fa-user"></i> <span>Profile</span></a>
+    <div class="mobile-divider"></div>
+    <button class="mobile-link" id="mobile-theme-toggle"><i class="fas fa-moon"></i> <span data-i18n="toggle_theme">Dark Mode</span></button>
+    <button class="mobile-link" id="mobile-lang-toggle"><i class="fas fa-globe"></i> <span>العربية</span></button>
+  </div>
+</nav>
 
-        @media (max-width: 480px) {
-            .drawer-content {
-                width: 100vw;
-            }
-            .compare-modal-content {
-                width: 95%;
-                padding: 16px;
-            }
-        }
-    </style>
+<!-- ========== MAIN CONTENT ========== -->
+<main id="app-root" role="main">
+  <!-- Pages render here -->
+  <div class="page-loader" id="page-loader">
+    <div class="loader-ball"></div>
+  </div>
+</main>
 
-    <!-- Custom Logic Script -->
-    <script src="app.js"></script>
+<!-- ========== TOAST ========== -->
+<div id="toast-container" aria-live="polite"></div>
+
+<!-- ========== AUTH MODAL (Login/Register) ========== -->
+<div class="modal-overlay" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
+  <div class="modal-box auth-modal-box">
+    <button class="modal-close" id="auth-modal-close" aria-label="Close">&times;</button>
+    <div id="auth-modal-content"><!-- injected --></div>
+  </div>
+</div>
+
+<!-- ========== MATCH DETAIL MODAL ========== -->
+<div class="modal-overlay" id="match-modal" role="dialog" aria-modal="true">
+  <div class="modal-box match-modal-box">
+    <button class="modal-close" id="match-modal-close" aria-label="Close">&times;</button>
+    <div id="match-modal-content"></div>
+  </div>
+</div>
+
+<!-- ========== SCRIPTS ========== -->
+<script src="app.js"></script>
 </body>
 </html>

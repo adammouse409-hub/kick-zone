@@ -1,0 +1,16 @@
+{
+  "leagues": ["PL", "PD", "SA", "BL1", "FL1"],
+  "knockouts": ["CL"],
+  "rules": {
+    "league": {
+      "extraTime": false,
+      "penalties": false,
+      "drawAllowed": true
+    },
+    "knockout": {
+      "extraTime": true,
+      "penalties": true,
+      "drawAllowed": false
+    }
+  }
+}

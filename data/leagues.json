@@ -1,0 +1,50 @@
+[
+  {
+    "id": "PL",
+    "name": "English Premier League",
+    "code": "PL",
+    "emblem": "https://crests.thefifadb.com/leagues/premier_league.png",
+    "country": "England",
+    "flag": "https://crests.thefifadb.com/flags/eng.png"
+  },
+  {
+    "id": "PD",
+    "name": "Spanish La Liga",
+    "code": "PD",
+    "emblem": "https://crests.thefifadb.com/leagues/la_liga.png",
+    "country": "Spain",
+    "flag": "https://crests.thefifadb.com/flags/esp.png"
+  },
+  {
+    "id": "SA",
+    "name": "Italian Serie A",
+    "code": "SA",
+    "emblem": "https://crests.thefifadb.com/leagues/serie_a.png",
+    "country": "Italy",
+    "flag": "https://crests.thefifadb.com/flags/ita.png"
+  },
+  {
+    "id": "BL1",
+    "name": "German Bundesliga",
+    "code": "BL1",
+    "emblem": "https://crests.thefifadb.com/leagues/bundesliga.png",
+    "country": "Germany",
+    "flag": "https://crests.thefifadb.com/flags/ger.png"
+  },
+  {
+    "id": "FL1",
+    "name": "French Ligue 1",
+    "code": "FL1",
+    "emblem": "https://crests.thefifadb.com/leagues/ligue_1.png",
+    "country": "France",
+    "flag": "https://crests.thefifadb.com/flags/fra.png"
+  },
+  {
+    "id": "CL",
+    "name": "UEFA Champions League",
+    "code": "CL",
+    "emblem": "https://crests.thefifadb.com/leagues/cl.png",
+    "country": "Europe",
+    "flag": "https://crests.thefifadb.com/flags/eu.png"
+  }
+]
