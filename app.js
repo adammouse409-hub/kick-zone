@@ -109,22 +109,60 @@ const DB = {
   ],
 
   matches: [
-    { id:101, comp:"PL",  home:"64",  away:"66",  homeScore:2, awayScore:1, status:"LIVE",     minute:72, stage:"REGULAR_SEASON", date:"2026-07-20T12:00:00Z" },
-    { id:102, comp:"PL",  home:"65",  away:"57",  homeScore:1, awayScore:1, status:"LIVE",     minute:38, stage:"REGULAR_SEASON", date:"2026-07-20T12:30:00Z" },
-    { id:103, comp:"PD",  home:"86",  away:"81",  homeScore:3, awayScore:1, status:"FINISHED", minute:90, stage:"REGULAR_SEASON", date:"2026-07-19T20:00:00Z" },
-    { id:104, comp:"CL",  home:"5",   away:"86",  homeScore:1, awayScore:1, status:"LIVE",     minute:96, stage:"SEMI_FINALS",    date:"2026-07-20T11:00:00Z", extraTime:true, etScore:{h:1,a:1} },
-    { id:105, comp:"SA",  home:"108", away:"98",  homeScore:2, awayScore:0, status:"FINISHED", minute:90, stage:"REGULAR_SEASON", date:"2026-07-19T18:00:00Z" },
+    { id:101, comp:"PL",  home:"64",  away:"66",  homeScore:2, awayScore:1, status:"LIVE",     minute:72, stage:"REGULAR_SEASON", date:"2026-07-20T12:00:00Z",
+      stats:{possession:[58,42],shots:[12,7],shotsOnTarget:[6,3],corners:[5,3],offsides:[1,2],fouls:[9,13],yellowCards:[1,3],redCards:[0,0],passes:[487,312],passAccuracy:[87,74]} },
+    { id:102, comp:"PL",  home:"65",  away:"57",  homeScore:1, awayScore:1, status:"LIVE",     minute:38, stage:"REGULAR_SEASON", date:"2026-07-20T12:30:00Z",
+      stats:{possession:[54,46],shots:[6,5],shotsOnTarget:[3,2],corners:[3,2],offsides:[0,1],fouls:[5,6],yellowCards:[0,1],redCards:[0,0],passes:[245,208],passAccuracy:[89,85]} },
+    { id:103, comp:"PD",  home:"86",  away:"81",  homeScore:3, awayScore:1, status:"FINISHED", minute:90, stage:"REGULAR_SEASON", date:"2026-07-19T20:00:00Z",
+      stats:{possession:[62,38],shots:[18,9],shotsOnTarget:[8,4],corners:[7,3],offsides:[2,4],fouls:[10,15],yellowCards:[2,4],redCards:[0,1],passes:[643,389],passAccuracy:[91,78]} },
+    { id:104, comp:"CL",  home:"5",   away:"86",  homeScore:1, awayScore:1, status:"LIVE",     minute:96, stage:"SEMI_FINALS",    date:"2026-07-20T11:00:00Z", extraTime:true, etScore:{h:1,a:1},
+      stats:{possession:[47,53],shots:[14,16],shotsOnTarget:[5,7],corners:[4,6],offsides:[3,1],fouls:[14,11],yellowCards:[3,2],redCards:[0,0],passes:[512,578],passAccuracy:[83,88]} },
+    { id:105, comp:"SA",  home:"108", away:"98",  homeScore:2, awayScore:0, status:"FINISHED", minute:90, stage:"REGULAR_SEASON", date:"2026-07-19T18:00:00Z",
+      stats:{possession:[56,44],shots:[15,8],shotsOnTarget:[7,2],corners:[6,2],offsides:[1,3],fouls:[12,16],yellowCards:[2,3],redCards:[0,0],passes:[534,421],passAccuracy:[86,79]} },
     { id:106, comp:"PL",  home:"61",  away:"73",  homeScore:0, awayScore:0, status:"SCHEDULED",minute:0,  stage:"REGULAR_SEASON", date:"2026-07-21T19:00:00Z" },
     { id:107, comp:"BL1", home:"5",   away:"4",   homeScore:0, awayScore:0, status:"SCHEDULED",minute:0,  stage:"REGULAR_SEASON", date:"2026-07-22T17:30:00Z" },
     { id:108, comp:"FL1", home:"524", away:"516", homeScore:0, awayScore:0, status:"SCHEDULED",minute:0,  stage:"REGULAR_SEASON", date:"2026-07-22T20:00:00Z" },
-    { id:109, comp:"PD",  home:"78",  away:"92",  homeScore:1, awayScore:0, status:"FINISHED", minute:90, stage:"REGULAR_SEASON", date:"2026-07-18T20:00:00Z" }
+    { id:109, comp:"PD",  home:"78",  away:"92",  homeScore:1, awayScore:0, status:"FINISHED", minute:90, stage:"REGULAR_SEASON", date:"2026-07-18T20:00:00Z",
+      stats:{possession:[51,49],shots:[11,10],shotsOnTarget:[4,3],corners:[5,5],offsides:[2,2],fouls:[13,12],yellowCards:[3,2],redCards:[0,0],passes:[465,449],passAccuracy:[82,80]} }
   ],
 
   news: [
-    { id:1, title:"Mohamed Salah seals massive extension at Anfield",            desc:"Liverpool FC confirms Salah has signed a contract extension keeping him at the club until 2028.", tag:"Transfer News",   date:"2026-07-20" },
-    { id:2, title:"Pep Guardiola reveals tactical overhaul plans",               desc:"City boss says structural updates were necessary to overcome Arsenal's defensive block.",        tag:"Match Analysis", date:"2026-07-20" },
-    { id:3, title:"Real Madrid unveil elite prospects for new campaign",         desc:"Florentino Pérez outlines the long-term vision during the official presentation.",               tag:"La Liga",        date:"2026-07-19" },
-    { id:4, title:"Champions League semi-final preview: Bayern vs Real Madrid",  desc:"Two European giants clash with a spot in the final at stake. Key tactical insights inside.",    tag:"UCL",            date:"2026-07-20" }
+    { id:1, title:"Mohamed Salah seals massive extension at Anfield",
+      desc:"Liverpool FC confirms Salah has signed a contract extension keeping him at the club until 2028.",
+      tag:"Transfer News", date:"2026-07-20", clubId:"64",
+      gradient:"linear-gradient(135deg,#c8102e 0%,#00b2a9 100%)",
+      icon:"fa-pen-fancy",
+      content:`Mohamed Salah has officially signed a new contract extension with Liverpool FC, keeping the Egyptian superstar at Anfield until 2028. The deal, reportedly worth £350,000 per week, makes Salah one of the highest-paid players in Premier League history.\n\nSalah, who has scored 214 goals in 352 appearances for Liverpool since joining from AS Roma in 2017, expressed his delight at the announcement: \"This is my home. The fans, the city, everything about this club is special. I want to continue winning trophies here.\"\n\nManager Arne Slot praised the decision: \"Mo is irreplaceable. His work ethic, his consistency, and his ability to deliver in the biggest moments make him one of the greatest players to ever wear this shirt.\"\n\nThe 34-year-old has shown no signs of slowing down, registering 18 goals and 9 assists in the current campaign. Liverpool fans will be thrilled to see their talisman committed to the club for years to come.\n\nThe announcement comes at a crucial time as Liverpool look to strengthen their squad for a title challenge, with several new signings expected to arrive this summer alongside Salah's contract renewal.` },
+    { id:2, title:"Pep Guardiola reveals tactical overhaul after Arsenal draw",
+      desc:"City boss says structural updates were necessary to overcome Arsenal's deep defensive block.",
+      tag:"Match Analysis", date:"2026-07-20", clubId:"65",
+      gradient:"linear-gradient(135deg,#6CABDD 0%,#1C2C5B 100%)",
+      icon:"fa-chess",
+      content:`Pep Guardiola has outlined the tactical shifts Manchester City have implemented following their 1-1 draw with Arsenal at the Etihad Stadium. The City manager acknowledged that Mikel Arteta's defensive setup posed significant challenges.\n\n\"Arsenal defended incredibly well,\" Guardiola said. \"They had a low block with five defenders and two sitting midfielders. We had to find new ways to break through. In the second half, we switched to a 3-2-5 formation to create overloads on the flanks.\"\n\nKey tactical changes included:\n\n• Rodri dropping between the centre-backs to form a back three\n• Kevin De Bruyne moving into a false nine position\n• Both full-backs inverting into midfield channels\n• Erling Haaland drifting wide to drag defenders out of position\n\nThe xG data supported Guardiola's approach: City generated 2.1 expected goals compared to Arsenal's 0.8, despite the scoreline suggesting an even contest.\n\n\"We dominated the ball, we created chances, but in football you also need to score,\" Guardiola reflected. \"We'll keep working on finishing. The performance was there.\"\n\nCity's next fixture is a crucial Champions League group stage match, where Guardiola is expected to rotate his squad while maintaining tactical flexibility.` },
+    { id:3, title:"Real Madrid unveil elite prospects for new campaign",
+      desc:"Florentino Pérez outlines the long-term vision during the official presentation ceremony.",
+      tag:"La Liga", date:"2026-07-19", clubId:"86",
+      gradient:"linear-gradient(135deg,#FEBE10 0%,#00529F 100%)",
+      icon:"fa-star",
+      content:`Real Madrid president Florentino Pérez has unveiled the club's latest signings at a glamorous presentation ceremony at the Santiago Bernabéu. The event, attended by over 60,000 fans, showcased the club's commitment to building a squad capable of dominating European football for the next decade.\n\nThe signings represent a significant investment in young talent, with an average age of just 22 across the new arrivals. Pérez stated: \"Real Madrid has always been about the future. We sign the best young players in the world and develop them into legends.\"\n\nThe presentation also featured a tribute to the club's rich history, with former legends like Raúl, Zidane, and Roberto Carlos appearing via video messages to welcome the new players.\n\nManager Carlo Ancelotti expressed confidence in the squad's depth: \"We have competition for every position. This is what a club like Real Madrid demands. Every player must fight for their place, and this will only make us stronger.\"\n\nKey highlights from the event included:\n\n• A spectacular light show featuring the 15 Champions League trophies\n• Live musical performances by international artists\n• Interactive fan zones around the stadium\n• A charity auction with proceeds going to the Real Madrid Foundation\n\nThe Bernabéu's state-of-the-art retractable roof was fully utilized for the event, creating an indoor arena atmosphere that left fans and media in awe.` },
+    { id:4, title:"Champions League semi-final preview: Bayern vs Real Madrid",
+      desc:"Two European giants clash with a spot in the final at stake. Key tactical insights and historical context.",
+      tag:"UCL", date:"2026-07-20", clubId:"5",
+      gradient:"linear-gradient(135deg,#0e1e5b 0%,#d4af37 100%)",
+      icon:"fa-trophy",
+      content:`The UEFA Champions League semi-final between Bayern Munich and Real Madrid promises to be one of the most exciting fixtures of the season. These two clubs have a storied rivalry in European competition, with 26 Champions League titles between them.\n\nHead-to-Head Record (European Competition):\n• Total meetings: 26\n• Real Madrid wins: 12\n• Bayern Munich wins: 10\n• Draws: 4\n\nBayern Munich Strengths:\nVincent Kompany's side has been in scintillating form, winning their last 8 matches in all competitions. The Bavarian giants boast the tournament's best defensive record, conceding just 3 goals in 10 Champions League matches this season. Harry Kane leads the scoring charts with 9 goals.\n\nReal Madrid Strengths:\nCarlo Ancelotti's side possesses unmatched European experience. Vinícius Júnior and Kylian Mbappé form one of the most lethal attacking partnerships in world football, combining for 43 goals this season. Jude Bellingham's ability to arrive late in the box has been a game-changer.\n\nKey Tactical Battle:\nThe matchup between Bayern's high press and Real Madrid's counter-attacking speed will be decisive. Expect Kompany to deploy an aggressive pressing system, while Ancelotti will look to exploit the spaces left behind.\n\nPrediction: A tightly contested affair that could go to extra time. Both teams have the quality to reach the final, but Real Madrid's European DNA gives them a slight edge over two legs.` },
+    { id:5, title:"Inter Milan dominate Derby della Madonnina with clinical display",
+      desc:"Lautaro Martínez scores twice as Inter crush city rivals AC Milan 2-0 in the Milan derby.",
+      tag:"Serie A", date:"2026-07-19", clubId:"108",
+      gradient:"linear-gradient(135deg,#003DA5 0%,#000000 100%)",
+      icon:"fa-futbol",
+      content:`Inter Milan produced a masterclass in the Derby della Madonnina, defeating AC Milan 2-0 at San Siro in a dominant display that reinforced their Serie A title credentials. Lautaro Martínez scored both goals, taking his tally to 24 for the season.\n\nThe Argentine striker opened the scoring in the 34th minute with a clinical finish from the edge of the box after a perfectly weighted through ball from Hakan Çalhanoğlu. He doubled Inter's advantage in the 67th minute with a powerful header from a corner kick.\n\nManager Simone Inzaghi praised his team's tactical discipline: \"We controlled every phase of the game. Our pressing was excellent, and our defensive shape gave AC Milan no space to create. This is the Inter I want to see every week.\"\n\nKey Statistics:\n• Inter dominated possession with 56% vs 44%\n• 15 shots to AC Milan's 8\n• 7 shots on target to 2\n• Inter completed 534 passes with 86% accuracy\n\nThe result extends Inter's unbeaten run against their city rivals to 5 matches and moves them top of the Serie A table on goal difference.` },
+    { id:6, title:"Mbappé and Vinícius partnership reaches new heights at Real Madrid",
+      desc:"The deadly duo have combined for 43 goals this season, making them Europe's most feared attack.",
+      tag:"La Liga", date:"2026-07-18", clubId:"86",
+      gradient:"linear-gradient(135deg,#FFFFFF 0%,#d4af37 50%,#00529F 100%)",
+      icon:"fa-bolt",
+      content:`The partnership between Kylian Mbappé and Vinícius Júnior has blossomed into the most devastating attacking combination in European football. Together, the duo has contributed 43 goals and 15 assists this season, terrorizing defenses across La Liga and the Champions League.\n\nMbappé, who joined Real Madrid from Paris Saint-Germain, has adapted seamlessly to Carlo Ancelotti's system. Playing centrally as the main striker, the French international has scored 21 goals and provided 7 assists. His partnership with Vinícius on the left flank has created a dynamic that few defenses can contain.\n\nVinícius, meanwhile, continues to improve year on year. The Brazilian has scored 22 goals and added 8 assists, often cutting inside from the left wing to devastating effect. His dribbling ability and pace create space not only for himself but for his teammates.\n\nAncelotti reflected on the partnership: \"They complement each other perfectly. Kylian's movement in behind defenses is world-class, and Vinícius has the ability to beat any defender one-on-one. When both are on form, we are very difficult to stop.\"\n\nThe statistics speak for themselves:\n• Combined goals: 43\n• Combined assists: 15\n• Combined key passes per game: 6.2\n• Combined successful dribbles per game: 8.4\n\nWith the Champions League semi-final approaching, defenders around Europe will be devising plans to stop this formidable partnership.` }
   ],
 
   rules: {
@@ -527,17 +565,22 @@ router.add("#/", ()=>{
         </div>
 
         <div class="section">
-          <div class="section-header"><h2 class="section-title"><i class="fas fa-newspaper"></i> <span data-i18n="news_title">${T("news_title")}</span></h2></div>
-          <div class="news-grid">${DB.news.map(n=>`
-            <div class="news-card" data-href="#/news">
-              <div class="news-card-img-placeholder"><i class="fas fa-newspaper"></i></div>
+          <div class="section-header"><h2 class="section-title"><i class="fas fa-newspaper"></i> <span data-i18n="news_title">${T("news_title")}</span></h2><a href="#/news" class="section-link">View All <i class="fas fa-chevron-right"></i></a></div>
+          <div class="news-grid">${DB.news.slice(0,3).map(n=>{
+            const club = n.clubId ? getClub(n.clubId) : null;
+            return `
+            <div class="news-card" data-href="#/news/${n.id}">
+              <div style="height:180px;background:${n.gradient};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+                ${club ? `<img src="${club.crest}" style="width:70px;height:70px;object-fit:contain;opacity:0.35;position:absolute;right:20px;bottom:15px;">` : ""}
+                <i class="fas ${n.icon}" style="font-size:48px;color:rgba(255,255,255,0.3);"></i>
+              </div>
               <div class="news-card-body">
                 <span class="news-card-tag">${n.tag}</span>
                 <h3 class="news-card-title">${n.title}</h3>
-                <span class="news-card-meta">${n.date}</span>
+                <span class="news-card-meta"><i class="fas fa-clock"></i> ${n.date}</span>
               </div>
-            </div>
-          `).join("")}</div>
+            </div>`;
+          }).join("")}</div>
         </div>
       </div>
 
@@ -749,17 +792,56 @@ router.add("#/ucl", ()=>{
 router.add("#/news", ()=>{
   return `<div class="page">
     <h2 class="section-title mb-24"><i class="fas fa-newspaper"></i> ${T("news_title")}</h2>
-    <div class="news-grid">${DB.news.map(n=>`
-      <div class="news-card">
-        <div class="news-card-img-placeholder"><i class="fas fa-newspaper"></i></div>
+    <div class="news-grid">${DB.news.map(n=>{
+      const club = n.clubId ? getClub(n.clubId) : null;
+      return `
+      <div class="news-card" data-href="#/news/${n.id}">
+        <div style="height:180px;background:${n.gradient};display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+          ${club ? `<img src="${club.crest}" style="width:70px;height:70px;object-fit:contain;opacity:0.35;position:absolute;right:20px;bottom:15px;">` : ""}
+          <i class="fas ${n.icon}" style="font-size:48px;color:rgba(255,255,255,0.3);"></i>
+        </div>
         <div class="news-card-body">
           <span class="news-card-tag">${n.tag}</span>
-          <h3 class="news-card-title" style="-webkit-line-clamp:unset;">${n.title}</h3>
+          <h3 class="news-card-title">${n.title}</h3>
           <p class="text-muted text-small mb-8">${n.desc}</p>
-          <span class="news-card-meta">${n.date}</span>
+          <span class="news-card-meta"><i class="fas fa-clock"></i> ${n.date}</span>
         </div>
-      </div>
-    `).join("")}</div>
+      </div>`;
+    }).join("")}</div>
+  </div>`;
+});
+
+// ─── NEWS DETAIL ───
+router.add("#/news/:id", (p)=>{
+  const article = DB.news.find(n=>n.id===parseInt(p.id));
+  if(!article) return `<div class="page"><div class="error-state"><div class="error-title">Article not found</div></div></div>`;
+  const club = article.clubId ? getClub(article.clubId) : null;
+  const paragraphs = article.content.split('\\n\\n').map(p=>`<p style="margin-bottom:16px;line-height:1.8;font-size:15px;color:var(--text);">${p}</p>`).join("");
+
+  return `<div class="page" style="max-width:800px;">
+    <a href="#/news" style="display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:14px;font-weight:600;margin-bottom:24px;"><i class="fas fa-arrow-left"></i> Back to News</a>
+    
+    <div style="height:260px;background:${article.gradient};border-radius:var(--radius-lg);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:32px;">
+      ${club ? `<img src="${club.crest}" style="width:100px;height:100px;object-fit:contain;opacity:0.25;position:absolute;right:40px;bottom:30px;">` : ""}
+      <i class="fas ${article.icon}" style="font-size:72px;color:rgba(255,255,255,0.2);"></i>
+    </div>
+
+    <span class="news-card-tag" style="margin-bottom:12px;display:inline-block;">${article.tag}</span>
+    <h1 style="font-size:28px;font-weight:900;line-height:1.3;margin-bottom:12px;">${article.title}</h1>
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:32px;color:var(--text-2);font-size:13px;">
+      <span><i class="fas fa-clock"></i> ${article.date}</span>
+      ${club ? `<span><i class="fas fa-shield-alt"></i> ${club.name}</span>` : ""}
+      <span><i class="fas fa-book-reader"></i> 4 min read</span>
+    </div>
+
+    <div style="border-top:1px solid var(--border);padding-top:24px;">
+      ${paragraphs}
+    </div>
+
+    ${club ? `<div style="margin-top:32px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;gap:16px;cursor:pointer;" data-href="#/team/${club.id}">
+      <img src="${club.crest}" style="width:48px;height:48px;object-fit:contain;">
+      <div><div style="font-weight:700;">${club.name}</div><div style="font-size:12px;color:var(--text-2);">View Club Profile →</div></div>
+    </div>` : ""}
   </div>`;
 });
 
@@ -970,13 +1052,55 @@ function togglePwField(inputId, btn) {
   else { inp.type="password"; btn.innerHTML=`<i class="fas fa-eye"></i>`; }
 }
 
-// Match modal
+// Match modal with full statistics
 function openMatchModal(m) {
   const hc = getClub(m.home) || {name:m.home, crest:""};
   const ac = getClub(m.away) || {name:m.away, crest:""};
   const league = getLeague(m.comp);
   const hs = m.extraTime ? m.etScore.h : m.homeScore;
   const as = m.extraTime ? m.etScore.a : m.awayScore;
+
+  // Build stats bars
+  let statsHTML = "";
+  if(m.stats) {
+    const statLabels = [
+      ["possession",    "Possession",       "%"],
+      ["shots",         "Total Shots",      ""],
+      ["shotsOnTarget", "Shots on Target",  ""],
+      ["corners",       "Corners",          ""],
+      ["offsides",      "Offsides",         ""],
+      ["fouls",         "Fouls",            ""],
+      ["yellowCards",   "Yellow Cards",     ""],
+      ["redCards",      "Red Cards",        ""],
+      ["passes",        "Passes",           ""],
+      ["passAccuracy",  "Pass Accuracy",    "%"]
+    ];
+    statsHTML = `<div style="border-top:1px solid var(--border);margin-top:24px;padding-top:20px;">
+      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;"><i class="fas fa-chart-bar" style="color:var(--accent);"></i> Match Statistics</div>
+      ${statLabels.map(([key, label, suffix])=>{
+        const hv = m.stats[key][0];
+        const av = m.stats[key][1];
+        const total = hv + av || 1;
+        const hPct = Math.round((hv / total) * 100);
+        const aPct = 100 - hPct;
+        const hColor = hv > av ? "var(--accent)" : "var(--text-3)";
+        const aColor = av > hv ? "var(--accent)" : "var(--text-3)";
+        return `<div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:14px;font-weight:700;color:${hColor};min-width:40px;">${hv}${suffix}</span>
+            <span style="font-size:12px;color:var(--text-2);font-weight:500;">${label}</span>
+            <span style="font-size:14px;font-weight:700;color:${aColor};min-width:40px;text-align:right;">${av}${suffix}</span>
+          </div>
+          <div style="display:flex;gap:4px;height:6px;">
+            <div style="flex:${hPct};background:${hColor};border-radius:3px 0 0 3px;transition:flex 0.6s ease;"></div>
+            <div style="flex:${aPct};background:${aColor};border-radius:0 3px 3px 0;transition:flex 0.6s ease;"></div>
+          </div>
+        </div>`;
+      }).join("")}
+    </div>`;
+  } else if(m.status === "SCHEDULED") {
+    statsHTML = `<div style="text-align:center;padding:24px 0;color:var(--text-2);font-size:14px;"><i class="fas fa-clock" style="font-size:24px;margin-bottom:8px;display:block;color:var(--text-3);"></i>Match statistics will be available once the match begins.</div>`;
+  }
 
   document.getElementById("match-modal-content").innerHTML = `
     <div style="text-align:center;">
@@ -988,8 +1112,8 @@ function openMatchModal(m) {
         </div>
         <div>
           <div style="font-size:36px;font-weight:900;">${m.status!=="SCHEDULED" ? `${hs} - ${as}` : "vs"}</div>
-          <div style="font-size:13px;color:var(--text-2);margin-top:4px;">${m.status}</div>
-          ${m.extraTime ? `<div style="color:var(--accent-draw);font-size:12px;margin-top:4px;">After Extra Time</div>` : ""}
+          <div style="font-size:13px;color:var(--text-2);margin-top:4px;">${m.status=="LIVE" ? `<span class="match-minute">${m.minute}'</span>` : m.status}</div>
+          ${m.extraTime ? `<div style="color:var(--accent-draw);font-size:12px;margin-top:4px;">Extra Time</div>` : ""}
           ${m.penalties ? `<div style="color:var(--accent-2);font-size:13px;font-weight:700;margin-top:4px;">Penalties: ${m.penScore.h} - ${m.penScore.a}</div>` : ""}
         </div>
         <div style="text-align:center;">
@@ -997,6 +1121,7 @@ function openMatchModal(m) {
           <div style="font-weight:700;font-size:16px;">${ac.name}</div>
         </div>
       </div>
+      ${statsHTML}
     </div>
   `;
   document.getElementById("match-modal").classList.add("open");
