@@ -66,12 +66,16 @@ html {
 
 body {
   font-family: var(--font-en);
-  background: var(--bg);
+  background: radial-gradient(circle at center, rgba(10, 32, 20, 0.9), rgba(5, 16, 10, 0.98)), url('images/bg_football.jpg') center/cover no-repeat fixed;
   color: var(--text);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
   transition: background 0.3s ease, color 0.3s ease;
+}
+
+[data-theme="light"] body {
+  background: radial-gradient(circle at center, rgba(230, 245, 235, 0.92), rgba(215, 235, 220, 0.96)), url('images/bg_football.jpg') center/cover no-repeat fixed;
 }
 
 [data-lang="ar"] body,

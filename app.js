@@ -1052,7 +1052,71 @@ function togglePwField(inputId, btn) {
   else { inp.type="password"; btn.innerHTML=`<i class="fas fa-eye"></i>`; }
 }
 
-// Match modal with full statistics
+// ─── DEFAULTS FOR DISCUSSION & POLLS ───
+const defaultComments = {
+  101: [
+    { username: "LiverpoolFan99", comment: "Perfect performance from Salah! But that referee decision on the penalty was absolute robbery! ❌", date: "Just now" },
+    { username: "UnitedUnited", comment: "Ref was blind today. Clearly a handball in the box, should have been a penalty! 😡", date: "5 mins ago" }
+  ],
+  102: [
+    { username: "Cityzen", comment: "Draw is fair. Arsenal's low block is so frustrating to play against.", date: "10 mins ago" },
+    { username: "GunnersRule", comment: "Incredible defensive masterclass from Gabriel and Saliba today! 🛡️", date: "12 mins ago" }
+  ],
+  104: [
+    { username: "MiaSanMia", comment: "Going to penalties! My heart can't take this anymore! ⏱️", date: "2 mins ago" },
+    { username: "HalaMadrid", comment: "Ancelotti's magic will save us in the shootout. Real Madrid never dies!", date: "1 min ago" }
+  ]
+};
+
+const defaultPolls = {
+  101: { fair: 45, robbery: 35, controversy: 20 },
+  102: { fair: 80, robbery: 10, controversy: 10 },
+  103: { fair: 70, robbery: 15, controversy: 15 },
+  104: { fair: 60, robbery: 20, controversy: 20 },
+  105: { fair: 90, robbery: 5, controversy: 5 }
+};
+
+function getMatchPoll(matchId) {
+  let stored = sessionStorage.getItem(`kz_poll_${matchId}`);
+  if (stored) return JSON.parse(stored);
+  return defaultPolls[matchId] || { fair: 50, robbery: 25, controversy: 25 };
+}
+
+function getMatchComments(matchId) {
+  let stored = sessionStorage.getItem(`kz_comments_${matchId}`);
+  if (stored) return JSON.parse(stored);
+  return defaultComments[matchId] || [
+    { username: "FootballLover", comment: "What a match! Highly competitive game.", date: "10 mins ago" }
+  ];
+}
+
+window.submitMatchVote = function(matchId, option) {
+  let poll = getMatchPoll(matchId);
+  poll[option]++;
+  sessionStorage.setItem(`kz_poll_${matchId}`, JSON.stringify(poll));
+  toast.show("Your vote has been counted / تم تسجيل تصويتك بنجاح!", "success");
+  const match = DB.matches.find(x=>x.id===matchId);
+  if(match) openMatchModal(match);
+};
+
+window.addMatchComment = function(matchId) {
+  const input = document.getElementById("match-comment-input");
+  if(!input) return;
+  const val = input.value.trim();
+  if(!val) return;
+  
+  const username = state.user ? state.user.username : "GuestFan";
+  let comments = getMatchComments(matchId);
+  comments.unshift({ username, comment: val, date: "Just now" });
+  sessionStorage.setItem(`kz_comments_${matchId}`, JSON.stringify(comments));
+  
+  input.value = "";
+  toast.show("Comment posted / تم نشر تعليقك!", "success");
+  const match = DB.matches.find(x=>x.id===matchId);
+  if(match) openMatchModal(match);
+};
+
+// Match modal with full statistics and fan zone
 function openMatchModal(m) {
   const hc = getClub(m.home) || {name:m.home, crest:""};
   const ac = getClub(m.away) || {name:m.away, crest:""};
@@ -1102,6 +1166,59 @@ function openMatchModal(m) {
     statsHTML = `<div style="text-align:center;padding:24px 0;color:var(--text-2);font-size:14px;"><i class="fas fa-clock" style="font-size:24px;margin-bottom:8px;display:block;color:var(--text-3);"></i>Match statistics will be available once the match begins.</div>`;
   }
 
+  // Build Poll HTML
+  const poll = getMatchPoll(m.id);
+  const comments = getMatchComments(m.id);
+  const totalVotes = poll.fair + poll.robbery + poll.controversy || 1;
+  const fPct = Math.round((poll.fair / totalVotes) * 100);
+  const rPct = Math.round((poll.robbery / totalVotes) * 100);
+  const cPct = 100 - fPct - rPct;
+
+  let pollHTML = `
+    <div style="border-top:1px solid var(--border);margin-top:24px;padding-top:20px;text-align:left;">
+      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:16px;"><i class="fas fa-poll" style="color:var(--accent);"></i> Fan Poll / رأي الجماهير</div>
+      <div style="font-size:12px;color:var(--text-2);text-align:center;margin-bottom:16px;">What is your opinion on the referee's decisions in this match? / ما رأيك في القرارات التحكيمية؟</div>
+      
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-secondary" style="width:100%;display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;border-radius:var(--radius-sm);" onclick="submitMatchVote(${m.id}, 'fair')">
+          <span>⚖️ Fair Decisions / عادل</span>
+          <strong>${fPct}%</strong>
+        </button>
+        <button class="btn-secondary" style="width:100%;display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;border-radius:var(--radius-sm);" onclick="submitMatchVote(${m.id}, 'robbery')">
+          <span>❌ Injustice / ظلم تحكيمي</span>
+          <strong>${rPct}%</strong>
+        </button>
+        <button class="btn-secondary" style="width:100%;display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;border-radius:var(--radius-sm);" onclick="submitMatchVote(${m.id}, 'controversy')">
+          <span>🧐 Controversial Call / ركلة جزاء مشكوك فيها</span>
+          <strong>${cPct}%</strong>
+        </button>
+      </div>
+    </div>
+  `;
+
+  let commentsHTML = `
+    <div style="border-top:1px solid var(--border);margin-top:24px;padding-top:20px;text-align:left;">
+      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:16px;"><i class="fas fa-comments" style="color:var(--accent);"></i> Discussion Arena / ساحة نقاش الجماهير</div>
+      
+      <div style="display:flex;gap:10px;margin-bottom:16px;">
+        <input type="text" class="form-input" id="match-comment-input" placeholder="${state.lang === 'ar' ? 'اكتب رأيك في المباراة هنا...' : 'Write your opinion on the match...'}" style="flex:1;font-size:13px;height:38px;">
+        <button class="btn-primary" onclick="addMatchComment(${m.id})" style="height:38px;padding:0 16px;">${state.lang === 'ar' ? 'إرسال' : 'Send'}</button>
+      </div>
+
+      <div id="match-comments-list" style="display:flex;flex-direction:column;gap:10px;max-height:220px;overflow-y:auto;padding-right:4px;">
+        ${comments.map(c=>`
+          <div style="background:var(--card);border:1px solid var(--border);padding:10px 14px;border-radius:var(--radius-sm);">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;">
+              <strong style="color:var(--accent);">@${c.username}</strong>
+              <span class="text-muted">${c.date}</span>
+            </div>
+            <div style="font-size:13px;line-height:1.4;">${c.comment}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
   document.getElementById("match-modal-content").innerHTML = `
     <div style="text-align:center;">
       ${league ? `<div style="margin-bottom:16px;"><img src="${league.emblem}" style="width:28px;height:28px;display:inline;vertical-align:middle;"> <span style="font-size:14px;font-weight:600;color:var(--text-2);">${league.name}</span></div>` : ""}
@@ -1122,6 +1239,8 @@ function openMatchModal(m) {
         </div>
       </div>
       ${statsHTML}
+      ${pollHTML}
+      ${commentsHTML}
     </div>
   `;
   document.getElementById("match-modal").classList.add("open");
