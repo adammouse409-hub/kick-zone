@@ -432,7 +432,7 @@ function renderMatchCard(m) {
   const leagueName = league ? league.name : m.comp;
 
   return `
-    <div class="match-card ${m.status==='LIVE'?'live-card':''}" data-match="${m.id}">
+    <div class="match-card ${m.status==='LIVE'?'live-card':''}" data-href="#/match/${m.id}">
       <div class="match-meta"><span class="league-badge">${league?`<img src="${league.emblem}" alt="">`:""} ${leagueName}</span></div>
       <div class="team-side">
         <img src="${hc.crest}" class="team-logo" alt="${hc.tla}" onerror="this.style.display='none'">
@@ -842,6 +842,174 @@ router.add("#/news/:id", (p)=>{
       <img src="${club.crest}" style="width:48px;height:48px;object-fit:contain;">
       <div><div style="font-weight:700;">${club.name}</div><div style="font-size:12px;color:var(--text-2);">View Club Profile →</div></div>
     </div>` : ""}
+  </div>`;
+});
+
+// ─── MATCH DETAIL PAGE ───
+window.submitMatchPageVote = function(matchId, option) {
+  let poll = getMatchPoll(matchId);
+  poll[option]++;
+  sessionStorage.setItem(`kz_poll_${matchId}`, JSON.stringify(poll));
+  toast.show("Your vote has been counted / تم تسجيل تصويتك بنجاح!", "success");
+  router.resolve();
+};
+
+window.addMatchPageComment = function(matchId) {
+  const input = document.getElementById("match-page-comment-input");
+  if(!input) return;
+  const val = input.value.trim();
+  if(!val) return;
+  
+  const username = state.user ? state.user.username : "GuestFan";
+  let comments = getMatchComments(matchId);
+  comments.unshift({ username, comment: val, date: "Just now" });
+  sessionStorage.setItem(`kz_comments_${matchId}`, JSON.stringify(comments));
+  
+  input.value = "";
+  toast.show("Comment posted / تم نشر تعليقك!", "success");
+  router.resolve();
+};
+
+router.add("#/match/:id", (p)=>{
+  const m = DB.matches.find(x=>x.id===parseInt(p.id));
+  if(!m) return `<div class="page"><div class="error-state"><div class="error-title">Match not found</div></div></div>`;
+  const hc = getClub(m.home) || {name:m.home, crest:""};
+  const ac = getClub(m.away) || {name:m.away, crest:""};
+  const league = getLeague(m.comp);
+  const hs = m.extraTime ? m.etScore.h : m.homeScore;
+  const as = m.extraTime ? m.etScore.a : m.awayScore;
+
+  // Build stats bars
+  let statsHTML = "";
+  if(m.stats) {
+    const statLabels = [
+      ["possession",    "Possession",       "%"],
+      ["shots",         "Total Shots",      ""],
+      ["shotsOnTarget", "Shots on Target",  ""],
+      ["corners",       "Corners",          ""],
+      ["offsides",      "Offsides",         ""],
+      ["fouls",         "Fouls",            ""],
+      ["yellowCards",   "Yellow Cards",     ""],
+      ["redCards",      "Red Cards",        ""],
+      ["passes",        "Passes",           ""],
+      ["passAccuracy",  "Pass Accuracy",    "%"]
+    ];
+    statsHTML = `<div class="card" style="padding:24px;">
+      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:20px;"><i class="fas fa-chart-bar" style="color:var(--accent);"></i> Match Statistics / إحصائيات المباراة</div>
+      ${statLabels.map(([key, label, suffix])=>{
+        const hv = m.stats[key][0];
+        const av = m.stats[key][1];
+        const total = hv + av || 1;
+        const hPct = Math.round((hv / total) * 100);
+        const aPct = 100 - hPct;
+        const hColor = hv > av ? "var(--accent)" : "var(--text-3)";
+        const aColor = av > hv ? "var(--accent)" : "var(--text-3)";
+        return `<div style="margin-bottom:14px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <span style="font-size:14px;font-weight:700;color:${hColor};">${hv}${suffix}</span>
+            <span style="font-size:12px;color:var(--text-2);font-weight:500;">${label}</span>
+            <span style="font-size:14px;font-weight:700;color:${aColor};">${av}${suffix}</span>
+          </div>
+          <div style="display:flex;gap:4px;height:6px;">
+            <div style="flex:${hPct};background:${hColor};border-radius:3px 0 0 3px;"></div>
+            <div style="flex:${aPct};background:${aColor};border-radius:0 3px 3px 0;"></div>
+          </div>
+        </div>`;
+      }).join("")}
+    </div>`;
+  } else {
+    statsHTML = `<div class="card" style="text-align:center;padding:32px;color:var(--text-2);"><i class="fas fa-clock" style="font-size:28px;margin-bottom:12px;color:var(--text-3);display:block;"></i>Statistics will be updated live as the match starts.</div>`;
+  }
+
+  // Build Poll HTML
+  const poll = getMatchPoll(m.id);
+  const comments = getMatchComments(m.id);
+  const totalVotes = poll.fair + poll.robbery + poll.controversy || 1;
+  const fPct = Math.round((poll.fair / totalVotes) * 100);
+  const rPct = Math.round((poll.robbery / totalVotes) * 100);
+  const cPct = 100 - fPct - rPct;
+
+  let pollHTML = `
+    <div class="card" style="padding:24px;">
+      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:16px;"><i class="fas fa-poll" style="color:var(--accent);"></i> Fan Poll / رأي الجماهير</div>
+      <div style="font-size:12px;color:var(--text-2);text-align:center;margin-bottom:16px;">What is your opinion on the referee's decisions in this match? / ما رأيك في القرارات التحكيمية؟</div>
+      
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-secondary" style="width:100%;display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;border-radius:var(--radius-sm);" onclick="submitMatchPageVote(${m.id}, 'fair')">
+          <span>⚖️ Fair Decisions / عادل</span>
+          <strong>${fPct}%</strong>
+        </button>
+        <button class="btn-secondary" style="width:100%;display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;border-radius:var(--radius-sm);" onclick="submitMatchPageVote(${m.id}, 'robbery')">
+          <span>❌ Injustice / ظلم تحكيمي</span>
+          <strong>${rPct}%</strong>
+        </button>
+        <button class="btn-secondary" style="width:100%;display:flex;justify-content:space-between;padding:12px 16px;font-size:13px;border-radius:var(--radius-sm);" onclick="submitMatchPageVote(${m.id}, 'controversy')">
+          <span>🧐 Controversial Call / ركلة جزاء مشكوك فيها</span>
+          <strong>${cPct}%</strong>
+        </button>
+      </div>
+    </div>
+  `;
+
+  let commentsHTML = `
+    <div class="card" style="padding:24px;">
+      <div style="font-size:16px;font-weight:700;text-align:center;margin-bottom:16px;"><i class="fas fa-comments" style="color:var(--accent);"></i> Discussion Arena / ساحة نقاش الجماهير</div>
+      
+      <div style="display:flex;gap:10px;margin-bottom:16px;">
+        <input type="text" class="form-input" id="match-page-comment-input" placeholder="${state.lang === 'ar' ? 'اكتب رأيك في المباراة هنا...' : 'Write your opinion on the match...'}" style="flex:1;font-size:13px;height:38px;">
+        <button class="btn-primary" onclick="addMatchPageComment(${m.id})" style="height:38px;padding:0 16px;">${state.lang === 'ar' ? 'إرسال' : 'Send'}</button>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;max-height:260px;overflow-y:auto;padding-right:4px;">
+        ${comments.map(c=>`
+          <div style="background:var(--card);border:1px solid var(--border);padding:10px 14px;border-radius:var(--radius-sm);">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px;">
+              <strong style="color:var(--accent);">@${c.username}</strong>
+              <span class="text-muted">${c.date}</span>
+            </div>
+            <div style="font-size:13px;line-height:1.4;">${c.comment}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `;
+
+  return `<div class="page">
+    <a href="#/" style="display:inline-flex;align-items:center;gap:6px;color:var(--accent);font-size:14px;font-weight:600;margin-bottom:24px;"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    
+    <div class="team-hero" style="padding:40px;justify-content:center;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;gap:32px;width:100%;max-width:800px;justify-content:space-between;flex-wrap:wrap;">
+        <div style="text-align:center;flex:1;min-width:120px;cursor:pointer;" onclick="location.hash='#/team/${hc.id}'">
+          <img src="${hc.crest}" style="width:80px;height:80px;margin:0 auto 12px;object-fit:contain;">
+          <div style="font-size:18px;font-weight:800;">${hc.name}</div>
+        </div>
+
+        <div style="text-align:center;min-width:150px;">
+          ${league ? `<div style="font-size:12px;color:var(--text-2);margin-bottom:8px;">${league.name}</div>` : ""}
+          <div style="font-size:42px;font-weight:900;letter-spacing:2px;">${m.status!=='SCHEDULED' ? `${hs} - ${as}` : 'vs'}</div>
+          <div style="margin-top:8px;">
+            ${m.status==='LIVE' ? `<span class="match-minute"><i class="fas fa-circle live-dot"></i> ${m.minute}'</span>` : `<span class="badge badge-done">${m.status}</span>`}
+          </div>
+          ${m.extraTime ? `<div style="font-size:12px;color:var(--accent-draw);margin-top:6px;font-weight:600;">Extra Time</div>` : ""}
+          ${m.penalties ? `<div style="font-size:13px;color:var(--accent-2);margin-top:4px;font-weight:700;">Penalties: ${m.penScore.h} - ${m.penScore.a}</div>` : ""}
+        </div>
+
+        <div style="text-align:center;flex:1;min-width:120px;cursor:pointer;" onclick="location.hash='#/team/${ac.id}'">
+          <img src="${ac.crest}" style="width:80px;height:80px;margin:0 auto 12px;object-fit:contain;">
+          <div style="font-size:18px;font-weight:800;">${ac.name}</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:start;" class="match-layout-grid">
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        ${statsHTML}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        ${pollHTML}
+        ${commentsHTML}
+      </div>
+    </div>
   </div>`;
 });
 
